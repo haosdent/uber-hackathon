@@ -1,68 +1,71 @@
 var models = require('./models');
+var parse = require('co-body');
 
 var users = {
   add: function *(){
-    var user = new models.User({
-      name: this.request.name,
-      type: this.request.type
-    });
+    var request = JSON.parse(yield parse(this));
+    var user = new models.User(request);
     yield user.save();
-    this.body = user;
+    this.body = user.attributes;
   },
   updateById: function *(id){
+    var request = JSON.parse(yield parse(this));
     var user = yield models.User.findById(id);
     if (!user) {
-      this.body = '';
-    } else {
-      user.set('name', this.request.name);
-      user.set('type', this.request.type);
-      yield user.save();
-      this.body = user;
+      return;
     }
+    user.attributes = request;
+    yield user.save();
+    this.body = user.attributes;
   },
   getById: function *(id){
     var user = yield models.User.findById(id);
-    this.body = user;
+    if (user) {
+      this.body = user.attributes;
+    }
   },
   delById: function *(id){
     var user = yield models.User.findById(id);
+    if (!user) {
+      return;
+    }
     yield user.remove();
-    this.body = user;
+    this.body = user.attributes;
   }
 }
 
 var items = {
   add: function *(){
-    var item = new models.Item({
-      name: this.request.name,
-      driverId: this.request.driverId,
-      customerIds: this.request.customerIds
-    });
+    var request = JSON.parse(yield parse(this));
+    var item = new models.Item(request);
     yield item.save();
-    this.body = item;
+    this.body = item.attributes;
   },
   updateById: function *(id){
+    var request = JSON.parse(yield parse(this));
     var item = yield models.Item.findById(id);
     if (!item) {
-      this.body = '';
-    } else {
-      item.set('name', this.request.name);
-      item.set('driverId', this.request.driverId);
-      item.set('customerIds', this.request.customerIds);
-      yield item.save();
-      this.body = item;
+      return;
     }
+
+    item.attributes = request;
+    yield item.save();
+    this.body = item.attributes;
   },
   getById: function *(id){
     var item = yield models.Item.findById(id);
-    this.body = item;
+    if (!item) {
+      return;
+    }
+    this.body = item.attributes;
   },
   delById: function *(id){
     var item = yield models.Item.findById(id);
-    if (item) {
-      yield item.remove();
-      this.body = item;
+    if (!item) {
+      return;
     }
+    yield item.remove();
+    this.body = item.attributes;
   },
   getItemsByDriverId: function *(driverId){
     var result = yield models.Item.find({driverId: driverId});
@@ -73,20 +76,20 @@ var items = {
     if (!item) {
       return;
     }
-    item.customerIds.push(customerId);
+    item.attributes.customerIds.push(customerId);
     yield item.save();
-    this.body = item;
+    this.body = item.attributes;
   },
   delCustomerIdInItem: function *(id, customerId){
     var item = yield models.Item.findById(id);
     if (!item) {
       return;
     }
-    item.customerIds = item.customerIds.filter(function (e) {
+    item.attributes.customerIds = item.attributes.customerIds.filter(function (e) {
       return e != customerId;
     });
     yield item.save();
-    this.body = item;
+    this.body = item.attributes;
   }
 }
 

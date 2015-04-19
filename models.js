@@ -2,13 +2,13 @@ var Mongorito = require('mongorito');
 var Model = Mongorito.Model;
 Mongorito.connect('localhost/uber-hackathon');
 
-class User extends Model {
+var User = Model.extend({
+  collection: 'users'
+});
 
-}
-
-class Item extends Model {
-
-}
+var Item = Model.extend({
+  collection: 'items'
+});
 
 module.exports = {
   User: User,

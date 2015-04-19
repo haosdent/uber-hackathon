@@ -5,6 +5,7 @@
   "repository": "https://github.com/haosdent/uber-hackathon",
   "bugs": "https://github.com/haosdent/uber-hackathon/issues",
   "dependencies": {
+    "co-body": "^1.1.0",
     "koa": "^0.14.0",
     "koa-logger": "^1.2.1",
     "koa-route": "^1.1.4",
