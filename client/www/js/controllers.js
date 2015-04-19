@@ -2,15 +2,16 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+.controller('DriversCtrl', function($scope, Drivers) {
+  $scope.drivers = Drivers.all();
+  $scope.remove = function(driver) {
+    Drivers.remove(driver);
   }
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('DriverDetailCtrl', function($scope, $stateParams, Drivers) {
+  console.log($stateParams.driverId);
+  $scope.driver = Drivers.get($stateParams.driverId);
 })
 
 .controller('AccountCtrl', function($scope) {

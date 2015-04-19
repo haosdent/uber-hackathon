@@ -1,0 +1,16 @@
+<ion-view view-title="Drivers">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="driver in drivers" type="item-text-wrap" href="#/tab/driver/{{driver.id}}">
+        <img ng-src="{{driver.face}}">
+        <h2>{{driver.name}}</h2>
+        <p>{{driver.signature}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(driver)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
