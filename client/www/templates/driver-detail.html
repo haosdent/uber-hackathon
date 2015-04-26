@@ -6,9 +6,10 @@
 -->
 <ion-view view-title="{{driver.name}}">
   <ion-content class="padding">
-    <img ng-src="{{driver.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{driver.signature}}
-    </p>
+    <a class="item item-thumbnail-left">
+      <img ng-src="{{driver.face}}">
+      <h2>{{driver.name}}</h2>
+      <p>{{driver.signature}}</p>
+    </a>
   </ion-content>
 </ion-view>
