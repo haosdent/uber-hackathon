@@ -17,7 +17,7 @@
         <img class="full-image" ng-src="img/{{item.pic}}">
         <p>{{item.describe}}</p>
         <p>
-          <a class="subdued" ng-click="likeItem(item.id)">{{item.likeCount}} Like</a>
+          <a class="subdued">{{item.likes.length}} Like</a>
           <a class="subdued" ng-click="switchComments(item.id)">{{item.comments.length}} Comments</a>
         </p>
       </div>

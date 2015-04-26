@@ -56,7 +56,7 @@ angular.module('starter.services', [])
     driverId: 0,
     pic: 'delorean.jpg',
     describe: 'Describe describe describe',
-    likeCount: 4,
+    likes: [2],
     comments: [{
       content: 'comment 1',
       customerId: 0,
@@ -105,6 +105,16 @@ angular.module('starter.services', [])
         return item.driverId == driverId;
       });
       return result;
+    },
+    like: function(itemId, userId) {
+      var item = _(items).findWhere({id: itemId});
+      if (item) {
+        item.likes.push(userId);
+      };
+    },
+    unlike: function(itemId, userId) {
+      var item = _(items).findWhere({id: itemId});
+      item.likes = _(item.likes).without(userId);
     }
   };
 })
@@ -112,8 +122,7 @@ angular.module('starter.services', [])
 .factory('Users', function() {
 
   var users = [{
-    id: 0,
-    items: {}
+    id: 0
   }];
 
   return {
