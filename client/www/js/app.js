@@ -56,16 +56,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           controller: 'DriversCtrl'
         }
       }
-    })
-    .state('tab.driver-detail', {
-      url: '/driver/:driverId',
-      views: {
-        'tab-drivers': {
-          templateUrl: 'templates/driver-detail.html',
-          controller: 'DriverDetailCtrl'
-        }
+  })
+  .state('tab.driver-detail', {
+    url: '/driver/:driverId',
+    views: {
+      'tab-drivers': {
+        templateUrl: 'templates/driver-detail.html',
+        controller: 'DriverDetailCtrl'
       }
-    })
+    }
+  })
 
   .state('tab.account', {
     url: '/account',

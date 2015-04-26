@@ -5,11 +5,48 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{driver.name}}">
-  <ion-content class="padding">
-    <a class="item item-thumbnail-left">
-      <img ng-src="{{driver.face}}">
+  <ion-content class="padding" scoll="false">
+    <div class="item item-thumbnail-left" >
+      <img ng-src="{{driver.avatar}}">
       <h2>{{driver.name}}</h2>
       <p>{{driver.signature}}</p>
-    </a>
+    </div>
+
+    <div class="list card" ng-repeat="item in items">
+      <div class="item item-body">
+        <img class="full-image" ng-src="img/{{item.pic}}">
+        <p>{{item.describe}}</p>
+        <p>
+          <a class="subdued" ng-click="likeItem(item.id)">{{item.likeCount}} Like</a>
+          <a class="subdued" ng-click="switchComments(item.id)">{{item.comments.length}} Comments</a>
+        </p>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a  ng-class="{'tab-item': true, 'tab-item-active': isLikeItem(item.id)}" ng-click="likeItem(item.id)">
+        <i class="icon ion-thumbsup"></i>
+        Like
+        </a>
+        <a ng-class="{'tab-item': true, 'tab-item-active': isOpenComments(item.id)}" ng-click="switchComments(item.id)">
+        <i class="icon ion-chatbox"></i>
+        Comment
+        </a>
+      </div>
+
+      <div class="item list" ng-show="isOpenComments(item.id)">
+        <div class="item" ng-repeat="comment in item.comments">
+        {{comment.content}}
+        </div>
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input type="text" placeholder="Your comment">
+          </label>
+          <button class="button button-small button-positive">
+          Submit
+          </button>
+        </div>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>
